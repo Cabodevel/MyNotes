@@ -11,9 +11,27 @@ namespace MyNotes.ViewModel
             get => _Title;
             set { _Title = value; RaisePropertyChanged(() => Title); }
         }
-        public string Text { get; set; }
-        public string Color { get; set; }
-        public PriorityEnum Priority { get; set; }
+        private string _Text;
+        public string Text 
+        {
+            get => _Text;
+            set { _Text = value; RaisePropertyChanged(() => _Text); }
+        }
+
+        private string _Color;
+        public string Color 
+        {
+            get => _Color;
+            set { _Color = value; RaisePropertyChanged(() => _Color); }
+        }
+
+        private PriorityEnum _Priority;
+        public PriorityEnum Priority 
+        {
+            get => _Priority;
+            set { _Priority = value; RaisePropertyChanged(() => Priority); }
+        }
+
         public Command CreateCommand { get; set; }
         public Command UpdateCommand { get; set; }
     }
