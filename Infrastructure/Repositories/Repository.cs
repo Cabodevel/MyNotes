@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class MyNotesRepository<T> : IRepository<T> where T : BaseEntity, new()
+    public class Repository<T> : IRepository<T> where T : BaseEntity, new()
     {
         private readonly MyNotesDatabase _database;
         
-        public MyNotesRepository()
+        public Repository()
         {
             _database = new MyNotesDatabase(Path.Combine
                 (Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MyNotesSQLite.db3"));
