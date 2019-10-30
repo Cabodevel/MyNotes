@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MyNotes.Views.Note
+namespace MyNotes.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NoteFormView : ContentPage

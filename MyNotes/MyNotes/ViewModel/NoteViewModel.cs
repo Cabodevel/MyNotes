@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using AutoMapper;
 using MyNotesCore.Abstract;
 using MyNotesCore.Common;
 using MyNotesCore.Entities;

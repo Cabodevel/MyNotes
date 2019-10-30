@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:MyNotes.ViewModel"
              mc:Ignorable="d"
-             x:Class="MyNotes.Views.Note.NoteFormView">
+             x:Class="MyNotes.Views.NoteFormView">
     <ContentPage.BindingContext>
         <local:NoteViewModel />
     </ContentPage.BindingContext>

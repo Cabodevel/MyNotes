@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Autofac.Core;
 using Infrastructure.Repositories;
-using MyNotes.Views.Note;
+using MyNotes.Views;
 using MyNotesCore.Abstract;
 using MyNotesCore.Services;
 using System;
@@ -21,7 +21,7 @@ namespace MyNotes
             InitializeComponent();
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
             RegisterTypes();
-            MainPage = new NoteFormView();
+            MainPage = new NotesListView();
         }
 
         void RegisterTypes()
