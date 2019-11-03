@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MyNotes.Services.Abstract;
 using MyNotesCore.Abstract;
 using MyNotesCore.Common;
 using MyNotesCore.Entities;
@@ -10,8 +11,13 @@ namespace MyNotes.ViewModel
     public class NoteViewModel : ViewModelBase
     {
         private readonly INotesService _notesService;
-       
-        public NoteViewModel()
+
+        public override Task Init()
+        {
+            return Task.CompletedTask;
+        }
+
+        public NoteViewModel(INavService navService) : base(navService)
         {
 
             using (var scope = App.container.BeginLifetimeScope())
@@ -55,5 +61,7 @@ namespace MyNotes.ViewModel
 
         private async Task Create() => await _notesService.AddNote(new Note { Priority = PriorityEnum.Low, Title = "Title", Text="Some text"});
         private async Task Update() => await _notesService.UpdateNote(new Note());
+
+       
     }
 }

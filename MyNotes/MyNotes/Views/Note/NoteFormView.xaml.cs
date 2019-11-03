@@ -1,4 +1,5 @@
-﻿using MyNotes.ViewModel;
+﻿using MyNotes.Services.Abstract;
+using MyNotes.ViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,6 +11,7 @@ namespace MyNotes.Views
         public NoteViewModel Note { get; set; }
         public NoteFormView()
         {
+            Note = new NoteViewModel(DependencyService.Get<INavService>());
             BindingContext = Note;
             InitializeComponent();
         }

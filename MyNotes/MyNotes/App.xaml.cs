@@ -1,6 +1,9 @@
 ﻿using Autofac;
 using Autofac.Core;
 using Infrastructure.Repositories;
+using MyNotes.Services;
+using MyNotes.Services.Abstract;
+using MyNotes.ViewModel;
 using MyNotes.Views;
 using MyNotesCore.Abstract;
 using MyNotesCore.Services;
@@ -21,7 +24,18 @@ namespace MyNotes
             InitializeComponent();
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
             RegisterTypes();
-            MainPage = new NotesListView();
+            var mainPage = new NavigationPage(new NoteFormView());
+
+            var navService = DependencyService.Get<INavService>() as NavService;
+
+            navService.Navigator = mainPage.Navigation;
+
+            navService.RegisterViewMapping(typeof(NoteViewModel),
+                                           typeof(NoteFormView));
+            navService.RegisterViewMapping(typeof(NoteListViewModel),
+                                           typeof(NotesListView));
+
+            MainPage = mainPage;
         }
 
         void RegisterTypes()
