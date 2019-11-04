@@ -21,36 +21,15 @@ namespace MyNotes.Views
         public NotesListView()
         {
             BindingContext = new NoteListViewModel(DependencyService.Get<INavService>());
-            Device.BeginInvokeOnMainThread(async() =>
-            {
-                using (var scope = App.container.BeginLifetimeScope())
-                {
-                    var _notesService = scope.Resolve<INotesService>();
-                    var notesResult = await _notesService.GetAllNotes();
-                    if (notesResult.Success)
-                    {
-                        Items = new ObservableCollection<Note>(notesResult.ReturnValue);
-                        NotesList.ItemsSource = Items;
-                    }
-                    else
-                    {
-                        NotesList.ItemsSource = new ObservableCollection<Note>();
-                    }
-
-                }
-            });
-
-           
             InitializeComponent();
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item == null)
+            
                 return;
-
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-            var Note = (NoteViewModel)e.Item;
+            var Note = (Note)e.Item;
             _vm.ViewCommand.Execute(Note);
 
             //Deselect Item
@@ -59,11 +38,25 @@ namespace MyNotes.Views
 
         protected override async void OnAppearing()
         {
-            base.OnAppearing();
+            using (var scope = App.container.BeginLifetimeScope())
+            {
+                var _notesService = scope.Resolve<INotesService>();
+                var notesResult = await _notesService.GetAllNotes();
+                if (notesResult.Success)
+                {
+                    Items = new ObservableCollection<Note>(notesResult.ReturnValue);
+                    NotesList.ItemsSource = Items;
+                }
+                else
+                {
+                    NotesList.ItemsSource = new ObservableCollection<Note>();
+                }
 
+            }
             // Initialize MainViewModel
             if (_vm != null)
                 await _vm.Init();
+            base.OnAppearing();
         }
     }
 }

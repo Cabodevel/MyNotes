@@ -31,8 +31,8 @@ namespace MyNotesCore.Services
         public async Task<Result<ICollection<Note>>> GetAllNotes()
         {
             ICollection<Note> notes = await _notesRepository.GetAll();
-            if (notes != null && notes.ToList().Any())
-                return new Result<ICollection<Note>>(true, notes);
+            if (notes != null && notes.Any())
+                return new Result<ICollection<Note>>(true, notes.OrderBy(x => x.Priority).ToList());
             return new Result<ICollection<Note>>(false, "There aren't any note");
         }
 

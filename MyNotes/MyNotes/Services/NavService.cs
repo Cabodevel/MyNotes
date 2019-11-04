@@ -21,7 +21,8 @@ namespace MyNotes.Services
 
         public void RegisterViewMapping(Type viewModel, Type view)
         {
-            _map.Add(viewModel, view);
+            if(!_map.ContainsKey(viewModel))
+             _map.Add(viewModel, view);
         }
 
         public bool CanGoBack
