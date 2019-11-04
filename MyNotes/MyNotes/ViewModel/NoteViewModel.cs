@@ -59,7 +59,11 @@ namespace MyNotes.ViewModel
         public Command CreateCommand { get; set; } 
         public Command UpdateCommand { get; set; }
 
-        private async Task Create() => await _notesService.AddNote(new Note { Priority = PriorityEnum.Low, Title = "Title", Text="Some text"});
+        private async Task Create()
+        {
+            await _notesService.AddNote(new Note { Priority = Priority, Title = Title, Text = Text });
+            await NavService.GoBack();
+        }
         private async Task Update() => await _notesService.UpdateNote(new Note());
 
        

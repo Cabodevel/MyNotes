@@ -5,6 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="MyNotes.Views.NotesListView">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="New" Command="{Binding NewCommand}"/>
+    </ContentPage.ToolbarItems>
   <ListView x:Name="NotesList"
             ItemsSource="{Binding Items}"
             ItemTapped="Handle_ItemTapped"

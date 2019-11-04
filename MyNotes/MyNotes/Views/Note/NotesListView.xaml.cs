@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MyNotes.Services.Abstract;
 using MyNotes.ViewModel;
 using MyNotesCore.Abstract;
 using MyNotesCore.Entities;
@@ -12,9 +13,14 @@ namespace MyNotes.Views
     public partial class NotesListView : ContentPage
     {
         public ObservableCollection<Note> Items { get; set; }
+        NoteListViewModel _vm
+        {
+            get { return BindingContext as NoteListViewModel; }
+        }
 
         public NotesListView()
         {
+            BindingContext = new NoteListViewModel(DependencyService.Get<INavService>());
             Device.BeginInvokeOnMainThread(async() =>
             {
                 using (var scope = App.container.BeginLifetimeScope())
@@ -44,9 +50,20 @@ namespace MyNotes.Views
                 return;
 
             await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
+            var Note = (NoteViewModel)e.Item;
+            _vm.ViewCommand.Execute(Note);
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // Initialize MainViewModel
+            if (_vm != null)
+                await _vm.Init();
         }
     }
 }

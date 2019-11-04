@@ -24,7 +24,7 @@ namespace MyNotes
             InitializeComponent();
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
             RegisterTypes();
-            var mainPage = new NavigationPage(new NoteFormView());
+            var mainPage = new NavigationPage(new NotesListView());
 
             var navService = DependencyService.Get<INavService>() as NavService;
 
